@@ -2,6 +2,10 @@ temp1 = "example_abs/1.abs"
 
 
 class ABS:
+    """
+    Create ABS object, that has a methods for .abs files maintenance.
+    It takes path with .abs file name as an input
+    """
 
     def __init__(self, abs_file_loc):
 
@@ -10,6 +14,10 @@ class ABS:
         self.list_of_lines = []
 
     def getlines(self):
+        """
+        Appends each line of .abs as a single element to self.list_of_lines list.
+        :return:
+        """
 
         for line in self.abs_file.readlines():
             char_list = []
@@ -18,6 +26,11 @@ class ABS:
             self.list_of_lines.append(char_list)
 
     def search_ats(self, line):
+        """
+        It will search index of each "@" in given string and append it to at_indexes list.
+        :param line:
+        :return:
+        """
         at_indexes =[]
         for index, char in enumerate(line):
             if char == "@":
