@@ -41,17 +41,18 @@ class ABS:
                 char_list.append(i)
             self.list_of_lines.append(char_list)
 
-    def search_ats(self, line):
+    def search_symbol(self, line, symbol):
         """
-        It will search index of each "@" in given string and append it to at_indexes list.
-        :param line:
-        :return:
+        It will search index of each appearance of given symbol in passed (line) and append it to symbol_indexes list.
+        :param symbol: symbol which indexes you want to search for
+        :param line: list of elements from one line (one bar/mesh from .abs).
+        :return: list with indexes of each appearance of chosen symbol
         """
-        at_indexes =[]
+        symbol_indexes =[]
         for index, char in enumerate(line):
-            if char == "@":
-                at_indexes.append(index)
-        return at_indexes
+            if str(char) == str(symbol):
+                symbol_indexes.append(index)
+        return symbol_indexes
 
     def get_pos_numbers(self):
         """
@@ -60,7 +61,7 @@ class ABS:
         """
         # position number appears after 4th "@" symbol
         for line in self.list_of_lines:
-            index = self.search_ats(line)
+            index = self.search_symbol(line, '@')
             self.numbers.append(''.join(line[index[3]+1:index[4]]))
         return np.unique(self.numbers)
 
@@ -78,7 +79,7 @@ class ABS:
         for nr in unique_positions:
             current_value = 0
             for line in self.list_of_lines:
-                index = self.search_ats(line)   #list of "@" index
+                index = self.search_symbol(line, '@')   #list of "@" index
                 if ''.join(line[0:4]) == str(data_type.upper()):
                     if ''.join(line[index[3]+1:index[4]]) == nr:
                         if do_sum == True:
@@ -115,9 +116,9 @@ x=[1,2,3,4,5,6,7,8,9]
 
 # print(x[2:5])
 
-# # test whether search_ats method works
+# # test whether search_symbol method works
 # for line in abs.list_of_lines:
-#     index = abs.search_ats(line)
+#     index = abs.search_symbol(line)
 #     ind.append(index)
 #
 # for i in ind:
