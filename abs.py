@@ -1,5 +1,4 @@
 import numpy as np
-temp1 = "example_abs/1.abs"
 
 
 class ABS:
@@ -48,7 +47,7 @@ class ABS:
         :param line: list of elements from one line (one bar/mesh from .abs).
         :return: list with indexes of each appearance of chosen symbol
         """
-        symbol_indexes =[]
+        symbol_indexes = []
         for index, char in enumerate(line):
             if str(char) == str(symbol):
                 symbol_indexes.append(index)
@@ -79,13 +78,13 @@ class ABS:
         for nr in unique_positions:
             current_value = 0
             for line in self.list_of_lines:
-                index = self.search_symbol(line, '@')   #list of "@" index
+                index = self.search_symbol(line, '@')   # list of "@" index
                 if ''.join(line[0:4]) == str(data_type.upper()):
                     if ''.join(line[index[3]+1:index[4]]) == nr:
-                        if do_sum == True:
+                        if do_sum:
                             print(line[index[at_before]+factor:index[at_before+1]])
                             current_value += float(''.join(line[index[at_before]+factor:index[at_before+1]]))
-                        elif do_sum == False:
+                        elif not do_sum:
                             current_value = ''.join(line[index[at_before]+factor:index[at_before+1]])
             if current_value != 0:
                 pos_dict[nr] = current_value
@@ -94,33 +93,3 @@ class ABS:
             self.bf2d = pos_dict
         elif data_type == 'bfma':
             self.bfma = pos_dict
-
-
-
-
-
-#line[index[first_at]+1:index[last_at]]
-ind = []
-abs = ABS(temp1)
-abs.get_value(5, 'bfma', True, True)
-abs.get_value(5, 'bf2d', True, True)
-x = abs.bfma
-y = abs.bf2d
-print('MESHES:')
-for i in x:
-    print(i, ' number of pieces: ', x[i])
-print('REBARS:')
-for i in y:
-    print(i, ' number of pieces: ', y[i])
-x=[1,2,3,4,5,6,7,8,9]
-
-# print(x[2:5])
-
-# # test whether search_symbol method works
-# for line in abs.list_of_lines:
-#     index = abs.search_symbol(line)
-#     ind.append(index)
-#
-# for i in ind:
-#     print(i)
-
