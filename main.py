@@ -1,4 +1,5 @@
 from abs import ABS
+from tkinter import ttk
 from tkinter import *
 temp1 = "example_abs/1.abs"
 
@@ -7,11 +8,21 @@ abs.get_value(5, 'bf2d', True)
 
 
 root = Tk()
+container = ttk.Frame(root)
+canvas = Canvas(container)
+scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
+scrollable_frame = ttk.Frame(canvas)
+scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+canvas.configure(yscrollcommand=scrollbar.set)
 for pos in abs.bf2d:
     text = str(pos) + "  liczba sztuk: " + str(abs.bf2d[pos])
-    label = Label(root, text=text)
+    label = Label(scrollable_frame, text=text)
     label.pack()
 
+container.pack()
+canvas.pack()
+scrollbar.pack(side="right", fill="y")
 root.mainloop()
 
 # #line[index[first_at]+1:index[last_at]]
