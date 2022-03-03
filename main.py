@@ -1,6 +1,6 @@
 from abs import ABS
-
 from natsort import natsorted
+
 temp1 = "example_abs/2.abs"
 
 abs =ABS(temp1)
@@ -20,8 +20,15 @@ for pos in abs.bfma:
     # label.pack()
 
 
-class Position(ABS):
-    def __init__(self):
-        pass
+class Parameter:
+    def __init__(self, path, param):
+        self.path = path
+        self.param = param
+
+        self.position_nr = []
+        self.quantity = []
+        self.diameter = []
+        self.diameter = []
+
 
 
