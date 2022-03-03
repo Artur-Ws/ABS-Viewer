@@ -101,7 +101,7 @@ class ABS:
                     # if position number in table from top loop match position number of actual line
                     if ''.join(line[index[3]+2:index[4]]) == nr:
                         if do_sum:
-                            #print(line[index[at_before]+factor:index[at_before+1]])
+                            # print(line[index[at_before]+factor:index[at_before+1]])
                             current_value += float(''.join(line[index[at_before]+factor:index[at_before+1]]))
                         elif not do_sum:
                             current_value = ''.join(line[index[at_before]+factor:index[at_before+1]])
@@ -112,3 +112,11 @@ class ABS:
             self.bf2d = pos_dict
         elif data_type == 'bfma':
             self.bfma = pos_dict
+        elif data_type == 'bf3d':
+            self.bf3d = pos_dict
+        elif data_type == 'bfgt':
+            self.bfgt = pos_dict
+        elif data_type == 'bfwe':
+            self.bfwe = pos_dict
+        elif data_type == 'bfau':
+            self.bfau = pos_dict
