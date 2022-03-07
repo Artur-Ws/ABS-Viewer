@@ -30,7 +30,9 @@ class GUI:
     def make_tree(self):
 
         tree = ttk.Treeview(self.root, columns=self.headings, show='headings')
-        
+
+        for heading, heading_name in zip(self.headings, self.head_names):
+            tree.heading(heading, text=heading_name)
 
     def spacer(self, amount):
         space = ''
