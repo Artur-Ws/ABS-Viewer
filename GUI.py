@@ -5,13 +5,19 @@ from tkinter import *
 class GUI:
 
     def __init__(self):
-        self.abs_path = ' '
         self.root = Tk()
+
+        # Config:
+        self.headings = ['pos_nr', 'diameter', 'pieces', 'shape']
+        self.head_names = ['Numer pozycji', 'Średnica', 'Liczba sztuk', 'Kształt']
+        self.root.title('BVBS-Viewer')
+        self.root.geometry('1400x800')
+
+        self.abs_path = ' '
 
         self.main_process()
 
     def main_process(self):
-        self.root.title('BVBS-Viewer')
 
         button = ttk.Button(self.root, text='Wybierz plik')
         button.grid(row=0, column=0, sticky="w")
@@ -20,6 +26,11 @@ class GUI:
         label.grid(row=0, column=1, sticky="ew")
 
         self.root.mainloop()
+
+    def make_tree(self):
+
+        tree = ttk.Treeview(self.root, columns=self.headings, show='headings')
+        
 
     def spacer(self, amount):
         space = ''
