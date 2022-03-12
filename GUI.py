@@ -1,4 +1,5 @@
 from tkinter import ttk
+from tkinter import filedialog
 from tkinter import *
 
 
@@ -12,18 +13,17 @@ class GUI:
         self.head_names = ['Numer pozycji', 'Średnica', 'Liczba sztuk', 'Kształt']
         self.root.title('BVBS-Viewer')
         # self.root.geometry('1400x800')
-
+        self.label = Label(self.root, text=" Przykładowa lokalizacja pliku")
         self.abs_path = ' '
 
         self.main_process()
 
     def main_process(self):
 
-        button = ttk.Button(self.root, text='Wybierz plik')
+        button = ttk.Button(self.root, text='Wybierz plik', command=self.search_path)
         button.grid(row=0, column=0, sticky="w")
 
-        label = Label(self.root, text=" Przykładowa lokalizacja pliku")
-        label.grid(row=0, column=1, sticky="ew")
+        self.label.grid(row=0, column=0, columnspan=2, sticky="ew")
 
         self.make_tree()
 
@@ -42,7 +42,13 @@ class GUI:
         scroll.configure(command=tree.yview)
         tree.configure(yscrollcommand=scroll.set)
 
+        # for i in range(50):
+        e = [[1, 2, 3], [4, 5, 6]]
+        tree.insert('', END, values=e)
 
+    def search_path(self):
+        self.abs_path = filedialog.askdirectory()
+        self.label.configure(text='Wybrany plik: ' + str(self.abs_path))
 
     def spacer(self, amount):
         space = ''
