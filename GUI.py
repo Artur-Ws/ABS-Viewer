@@ -11,7 +11,7 @@ class GUI:
         self.headings = ['pos_nr', 'diameter', 'pieces', 'shape']
         self.head_names = ['Numer pozycji', 'Średnica', 'Liczba sztuk', 'Kształt']
         self.root.title('BVBS-Viewer')
-        self.root.geometry('1400x800')
+        # self.root.geometry('1400x800')
 
         self.abs_path = ' '
 
@@ -22,8 +22,10 @@ class GUI:
         button = ttk.Button(self.root, text='Wybierz plik')
         button.grid(row=0, column=0, sticky="w")
 
-        label = Label(self.root, text="Przykładowa lokalizacja pliku")
+        label = Label(self.root, text=" Przykładowa lokalizacja pliku")
         label.grid(row=0, column=1, sticky="ew")
+
+        self.make_tree()
 
         self.root.mainloop()
 
@@ -33,6 +35,14 @@ class GUI:
 
         for heading, heading_name in zip(self.headings, self.head_names):
             tree.heading(heading, text=heading_name)
+        tree.grid(row=1, column=0, columnspan=2, sticky="nsew")
+
+        scroll = ttk.Scrollbar(self.root)
+        scroll.grid(row=1, column=2, sticky="nse")
+        scroll.configure(command=tree.yview)
+        tree.configure(yscrollcommand=scroll.set)
+
+
 
     def spacer(self, amount):
         space = ''

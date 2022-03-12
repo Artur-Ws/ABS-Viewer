@@ -1,5 +1,6 @@
 from abs import ABS
 from natsort import natsorted
+from GUI import GUI
 
 temp1 = "example_abs/2.abs"
 
