@@ -66,7 +66,7 @@ class ABS:
 
     def get_value(self, at_before, data_type, do_sum=False, delete_first=True):
         """
-        Get values of given parameter passed by 'at_before' and assign it to one of specific datatype lists.\n
+        Get rebar_values of given parameter passed by 'at_before' and assign it to one of specific datatype lists.\n
         Possible datatypes:
             bf2d - 2d shapes,\n
             bfma - meshes,\n
@@ -76,7 +76,7 @@ class ABS:
             bfau - spacers an supporting cages.
         :param at_before: value after wchich "@" in a row (starts with "0" value).
         :param data_type: one of datatype shown above.
-        :param do_sum: warning - pass True only for summable values like number of pieces, or if you want i.e. total mass.
+        :param do_sum: warning - pass True only for summable rebar_values like number of pieces, or if you want i.e. total mass.
         :param delete_first: Whether or not to delete first sign of value (it is usually letter irrelevant for value).
         :return:
         """

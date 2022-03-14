@@ -1,11 +1,10 @@
 from abs import ABS
 from natsort import natsorted
-from GUI import GUI
 
-abs_path = "example_abs/1.abs"
-gui = GUI()
-rebar_values = []
-mesh_values = []
+
+# abs_path = "example_abs/1.abs"
+# rebar_values = []
+# mesh_values = []
 
 # ---- NUMBERS FOR SPECIFIC VALUES ----
 # "4" - for length
@@ -13,10 +12,11 @@ mesh_values = []
 # "7" - for diameter
 
 
-def fill_value_list(datatype, value_list):
+def fill_value_list(datatype, abs_path):
     """
     Gets empty list of values and appends sub-lists with data for each position from bvbs.
 
+    :param abs_path: Path for .abs file
     :param datatype: Datatype string, for rebars it will be "bf2d"
     :param value_list: Empty list for specific datatype - rebars or meshes for example.
     :return:
@@ -26,6 +26,10 @@ def fill_value_list(datatype, value_list):
     abs.get_value(5, datatype, do_sum=True)
 
     def refresh():
+        """
+        Its needed to refresh abs_dict to get new datatype dictionary, before each filling loop
+        :return:
+        """
         if datatype == 'bf2d':
             abs_dict = abs.bf2d
         elif datatype == 'bfma':
@@ -39,7 +43,7 @@ def fill_value_list(datatype, value_list):
         elif datatype == 'bfau':
             abs_dict = abs.bfau
         return abs_dict
-
+    value_list = []
     # ADD POSITION NUMBER LIST
     abs_dict = refresh()
     for pos in natsorted(abs_dict):
@@ -67,6 +71,10 @@ def fill_value_list(datatype, value_list):
         value_list[i].append(str(abs_dict[pos]))
         i += 1
 
+    return value_list
 
-fill_value_list('bf2d', rebar_values)
-print(rebar_values)
+# fill_value_list('bf2d')
+# fill_value_list('bfma')
+# print(rebar_values)
+# print(mesh_values)
+#

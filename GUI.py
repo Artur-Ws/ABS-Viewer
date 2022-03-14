@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import *
+import data_processing
 
 
 class GUI:
@@ -9,11 +10,12 @@ class GUI:
         self.root = Tk()
 
         # Config:
-        self.headings = ['pos_nr', 'diameter', 'pieces', 'shape']
-        self.head_names = ['Numer pozycji', 'Średnica', 'Liczba sztuk', 'Kształt']
+        self.headings = ['pos_nr', 'pieces', 'diameter', 'length']
+        self.head_names = ['Numer pozycji', 'Liczba sztuk', 'Średnica', 'Długość']
         self.root.title('BVBS-Viewer')
         # self.root.geometry('1400x800')
         self.label = Label(self.root, text=" Przykładowa lokalizacja pliku")
+        self.tree = ttk.Treeview(self.root, columns=self.headings, show='headings')
         self.abs_path = ' '
 
         self.main_process()
@@ -31,24 +33,30 @@ class GUI:
 
     def make_tree(self):
 
-        tree = ttk.Treeview(self.root, columns=self.headings, show='headings')
-
         for heading, heading_name in zip(self.headings, self.head_names):
-            tree.heading(heading, text=heading_name)
-        tree.grid(row=1, column=0, columnspan=2, sticky="nsew")
+            self.tree.heading(heading, text=heading_name)
+        self.tree.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         scroll = ttk.Scrollbar(self.root)
         scroll.grid(row=1, column=2, sticky="nse")
-        scroll.configure(command=tree.yview)
-        tree.configure(yscrollcommand=scroll.set)
+        scroll.configure(command=self.tree.yview)
+        self.tree.configure(yscrollcommand=scroll.set)
 
-        # for i in range(50):
-        e = [[1, 2, 3], [4, 5, 6]]
-        tree.insert('', END, values=e)
+    def fill_tree(self, data_list=None):
+
+        if data_list is None:
+            data_list = []
+
+        self.tree.delete(*self.tree.get_children())
+        for i in data_list:
+            self.tree.insert('', END, values=i)
 
     def search_path(self):
-        self.abs_path = filedialog.askdirectory()
+        self.abs_path = filedialog.askopenfilename()
         self.label.configure(text='Wybrany plik: ' + str(self.abs_path))
+
+        list = data_processing.fill_value_list('bf2d', self.abs_path)
+        self.fill_tree(list)
 
     def spacer(self, amount):
         space = ''
